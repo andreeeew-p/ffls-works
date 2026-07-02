@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FFLS Works - Program Documentation">
+    
+    <title>FFLS Works | Documentation</title>
+    
+    <!-- System Fonts & Modern Webfonts (Inter & Pretendard) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    
+    <!-- Same Stylesheet for brand consistency -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+    <!-- Sticky Header (100% Pristine English Index layout) -->
+    <header id="site-header">
+        <div class="header-container">
+            <div class="logo">
+                <a href="../index.html">FFLS Works</a>
+            </div>
+            <nav class="nav-links">
+                <a href="../index.html">&larr; Index</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="site-wrapper">
+        <!-- Back Navigation & Switcher Row (Perfect symmetry below header border) -->
+        <div class="back-navigation-row">
+            <div class="back-navigation">
+                <a href="../index.html" class="btn-back">
+                    &larr; Back to Index
+                </a>
+            </div>
+            <div class="lang-switcher">
+                <button class="btn-lang eng-active" id="btn-lang-en">ENG</button>
+                <span>/</span>
+                <button class="btn-lang kor-active" id="btn-lang-ko">KOR</button>
+            </div>
+        </div>
+
+        <!-- 2-Column Responsive Layout Grid -->
+        <article class="detail-container">
+            <div class="detail-layout-grid">
+                
+                <!-- Left Sidebar: Screenshot, Title, Platforms & Download buttons -->
+                <aside class="detail-sidebar">
+                    <div class="sidebar-sticky-box">
+                        <div class="screenshot-box" id="screenshot-container" title="Click to enlarge">
+                            <!-- Injected app mockup image -->
+                        </div>
+                        <div class="app-meta-box">
+                            <h2 class="app-meta-title" id="app-meta-name">Loading...</h2>
+                        </div>
+                        
+                        <!-- Quick Actions inside sidebar -->
+                        <div class="detail-actions" id="detail-actions-bar">
+                            <!-- Dynamically injected down and github links -->
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Right Area: Document text content -->
+                <div class="detail-content-area">
+                    <div id="markdown-viewer" class="markdown-body">
+                        <p class="loading-text">Loading documentation...</p>
+                    </div>
+                </div>
+                
+            </div>
+        </article>
+
+        <!-- Minimal Footer (Unified monospace styling) -->
+        <footer id="site-footer">
+            <p>Copyright &copy; 2026 Andrew Park (FFLS Works). All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Lightbox Modal for Screenshot Preview (Enlarge view) -->
+    <div id="lightbox-modal" class="lightbox-modal">
+        <button class="lightbox-btn close" id="lightbox-close-btn" aria-label="Close lightbox">&times;</button>
+        <button class="lightbox-btn prev" id="lightbox-prev-btn" aria-label="Previous image">&#10094;</button>
+        
+        <img class="lightbox-content" id="lightbox-img" alt="Screenshot Zoom View">
+        
+        <button class="lightbox-btn next" id="lightbox-next-btn" aria-label="Next image">&#10095;</button>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast-notification" aria-live="polite">
+        <span id="toast-message"></span>
+    </div>
+
+    <!-- Markdown Parser CDN (10KB) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        /* ==========================================================================
+           FFLS Works - Detail Page Controller (Inlined to prevent cache issues)
+           ========================================================================== */
+
+        // 1. App configurations with multiple media, store link and platform metadata (Relative paths shifted to parent)
+        const appLinks = {
+            pinpoint: {
+                name: 'pinpoint',
+                download: '../download/Pinpoint_v1.1.26_Portable.zip',
+                store: 'https://apps.microsoft.com/detail/9p8nk1rbd49k?hl=ko-KR&gl=KR',
+                screenshots: [
+                    '../screenshots EN/pinpoint/1.png',
+                    '../screenshots EN/pinpoint/2.png',
+                    '../screenshots EN/pinpoint/3.png'
+                ]
+            }
+        };
+
+        // 2. Fallback Markdown Data (For offline local fallback or CORS blockages)
+        const fallbackMarkdown = {
+            ko: {
+                pinpoint: `# pinpoint\n\n공유 드라이브(NAS)의 서버 부하를 방지하며 대기 시간 없이 파일을 즉시 찾아내는 온디맨드 검색기.\n\n## 주요 기능\n- 인덱싱 캐시 구조를 통한 디스크 수명(TBW) 및 서버 트래픽 보호\n- 검색어 입력 즉시 0.1초 내 결과 출력\n- 초경량 단일 포터블 패키지 제공`
+            },
+            en: {
+                pinpoint: `# pinpoint\n\nA server-friendly, on-demand search engine that locates files instantly on NAS without indexing overhead.\n\n## Key Features\n- Protects shared drive servers from excessive index requests\n- Ultra-fast file queries in less than 0.1 seconds\n- 100% portable single binary without system registry pollution`
+            }
+        };
+
+        // 3. State Management
+        const currentApp = 'pinpoint'; // Staticaly Hardcoded
+        let currentLang = 'ko';
+
+        // 5. Initialize Page
+        document.addEventListener('DOMContentLoaded', () => {
+            // 5-2. Initialize language configurations
+            initLanguage();
+            initLanguageToggle();
+
+            // 5-3. Render Spec Metadata Sidebar
+            renderSidebar();
+
+            // 5-4. Fetch and render Markdown Doc content
+            fetchDocumentation();
+        });
+
+        // 6. Language State Control Engine
+        function initLanguage() {
+            let savedLang = localStorage.getItem('preferredLanguage');
+            if (!savedLang) {
+                savedLang = navigator.language.startsWith('ko') ? 'ko' : 'en';
+            }
+            setLanguageMode(savedLang, false); // Initialize without re-fetching yet
+        }
+
+        function setLanguageMode(lang, shouldFetch = true) {
+            currentLang = lang;
+            document.body.className = `lang-${lang}`;
+            localStorage.setItem('preferredLanguage', lang);
+
+            // Apply active highlight to switcher buttons
+            const btnKo = document.getElementById('btn-lang-ko');
+            const btnEn = document.getElementById('btn-lang-en');
+            if (btnKo && btnEn) {
+                if (lang === 'ko') {
+                    btnKo.classList.add('kor-active');
+                    btnEn.classList.remove('eng-active');
+                } else {
+                    btnKo.classList.remove('kor-active');
+                    btnEn.classList.add('eng-active');
+                }
+            }
+
+            if (shouldFetch) {
+                fetchDocumentation();
+            }
+        }
+
+        function initLanguageToggle() {
+            const btnKo = document.getElementById('btn-lang-ko');
+            const btnEn = document.getElementById('btn-lang-en');
+
+            if (btnKo) {
+                btnKo.addEventListener('click', () => setLanguageMode('ko', true));
+            }
+            if (btnEn) {
+                btnEn.addEventListener('click', () => setLanguageMode('en', true));
+            }
+        }
+
+        // 7. Sidebar Metadata Specification Renderer
+        function renderSidebar() {
+            const appData = appLinks[currentApp];
+            
+            // Set Document Head Title & Meta Name
+            document.title = `FFLS Works | ${appData.name} Readme`;
+            document.getElementById('app-meta-name').textContent = appData.name;
+
+            // Injected Dynamic Download buttons (Restored pristine styling)
+            const actionsBar = document.getElementById('detail-actions-bar');
+            actionsBar.innerHTML = '';
+
+            // Download Button
+            const btnDownload = document.createElement('a');
+            btnDownload.href = appData.download;
+            btnDownload.className = 'btn-detail-action download download-trigger';
+            btnDownload.textContent = '[Download]';
+            btnDownload.addEventListener('click', () => {
+                const toastMsg = currentLang === 'ko'
+                    ? `${appData.name} 포터블 패키지 다운로드를 시작합니다.`
+                    : `Starting download for ${appData.name} Portable package.`;
+                showToast(toastMsg);
+            });
+            actionsBar.appendChild(btnDownload);
+
+            // Store Button (If exist)
+            if (appData.store) {
+                const btnStore = document.createElement('a');
+                btnStore.href = appData.store;
+                btnStore.className = 'btn-detail-action store';
+                btnStore.target = '_blank';
+                btnStore.rel = 'noopener noreferrer';
+                btnStore.textContent = '[MS Store]';
+                actionsBar.appendChild(btnStore);
+            }
+
+            // Screenshots initialization
+            initScreenshots(appData.screenshots);
+        }
+
+        // 8. Dynamic Markdown Loader & Renderer
+        function fetchDocumentation() {
+            const markdownViewer = document.getElementById('markdown-viewer');
+            // Show Loading Text
+            if (markdownViewer) {
+                const loadingMsg = currentLang === 'ko' ? '설명서를 불러오는 중입니다...' : 'Loading documentation...';
+                markdownViewer.innerHTML = `<div class="loading-text">${loadingMsg}</div>`;
+            }
+
+            const docUrl = `../docs/${currentApp}_${currentLang}.md`;
+
+            fetch(docUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch markdown file: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(text => {
+                    renderMarkdown(text);
+                })
+                .catch(err => {
+                    console.warn(`[FFLS Works] Remote MD fetch failed. Using fallback resources:`, err);
+                    // Render Fallback markup data
+                    const fallbackText = fallbackMarkdown[currentLang][currentApp] || `# ${currentApp}`;
+                    renderMarkdown(fallbackText);
+                });
+        }
+
+        function renderMarkdown(mdText) {
+            const markdownViewer = document.getElementById('markdown-viewer');
+            if (markdownViewer && typeof marked !== 'undefined') {
+                // Parse markdown text using 'marked' library safely
+                markdownViewer.innerHTML = marked.parse(mdText);
+            }
+        }
+
+        // 9. Screenshots Slider Engine
+        let activeSlideIndex = 0;
+        let slideImages = [];
+
+        function initScreenshots(screenshotsList) {
+            const container = document.getElementById('screenshot-container');
+            container.innerHTML = '';
+            slideImages = screenshotsList;
+
+            if (!slideImages || slideImages.length === 0) {
+                container.style.display = 'none';
+                return;
+            }
+
+            // 9-1. Create slide elements
+            slideImages.forEach((src, idx) => {
+                const img = document.createElement('img');
+                img.src = src;
+                img.className = 'app-screenshot slide';
+                if (idx === 0) img.classList.add('active');
+                img.alt = `${currentApp} screenshot preview ${idx + 1}`;
+                container.appendChild(img);
+            });
+
+            // 9-2. Create slider navigation bar (Harmonious Monochrome design)
+            const controls = document.createElement('div');
+            controls.className = 'slider-controls-outside';
+
+            const btnPrev = document.createElement('button');
+            btnPrev.className = 'btn-text-slider';
+            btnPrev.textContent = '< Prev';
+            btnPrev.addEventListener('click', () => changeSlide(-1));
+
+            const pageText = document.createElement('span');
+            pageText.className = 'slider-page-text';
+            pageText.id = 'slider-page-indicator';
+            pageText.textContent = `1 / ${slideImages.length}`;
+
+            const btnNext = document.createElement('button');
+            btnNext.className = 'btn-text-slider';
+            btnNext.textContent = 'Next >';
+            btnNext.addEventListener('click', () => changeSlide(1));
+
+            controls.appendChild(btnPrev);
+            controls.appendChild(pageText);
+            controls.appendChild(btnNext);
+            
+            // Insert slider controls right after the screenshot box
+            container.parentNode.insertBefore(controls, container.nextSibling);
+
+            // Setup modal lightbox zoom preview
+            setupLightbox();
+        }
+
+        function changeSlide(direction) {
+            const slides = document.querySelectorAll('.app-screenshot.slide');
+            if (slides.length <= 1) return;
+
+            slides[activeSlideIndex].classList.remove('active');
+            activeSlideIndex += direction;
+
+            if (activeSlideIndex >= slides.length) activeSlideIndex = 0;
+            if (activeSlideIndex < 0) activeSlideIndex = slides.length - 1;
+
+            slides[activeSlideIndex].classList.add('active');
+            document.getElementById('slider-page-indicator').textContent = `${activeSlideIndex + 1} / ${slides.length}`;
+        }
+
+        // 10. Lightbox Modal Preview Zoom Engine
+        let lightboxActiveIndex = 0;
+
+        function setupLightbox() {
+            const container = document.getElementById('screenshot-container');
+            const modal = document.getElementById('lightbox-modal');
+            const lightboxImg = document.getElementById('lightbox-img');
+            
+            const closeBtn = document.getElementById('lightbox-close-btn');
+            const prevBtn = document.getElementById('lightbox-prev-btn');
+            const nextBtn = document.getElementById('lightbox-next-btn');
+
+            if (!container || !modal || !lightboxImg || !closeBtn || !prevBtn || !nextBtn) return;
+
+            // Trigger modal Zoom-in
+            container.addEventListener('click', () => {
+                lightboxActiveIndex = activeSlideIndex;
+                lightboxImg.src = slideImages[lightboxActiveIndex];
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden'; // Lock body scroll
+            });
+
+            // Close Modal event listeners
+            const closeModal = () => {
+                modal.classList.remove('show');
+                document.body.style.overflow = '';
+            };
+
+            closeBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+
+            // Navigate inside Lightbox modal
+            const navigateLightbox = (dir) => {
+                lightboxActiveIndex += dir;
+                if (lightboxActiveIndex >= slideImages.length) lightboxActiveIndex = 0;
+                if (lightboxActiveIndex < 0) lightboxActiveIndex = slideImages.length - 1;
+                lightboxImg.src = slideImages[lightboxActiveIndex];
+            };
+
+            prevBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navigateLightbox(-1);
+            });
+            nextBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navigateLightbox(1);
+            });
+
+            // Keyboard support
+            document.addEventListener('keydown', (e) => {
+                if (!modal.classList.contains('show')) return;
+                if (e.key === 'Escape') closeModal();
+                if (e.key === 'ArrowLeft') navigateLightbox(-1);
+                if (e.key === 'ArrowRight') navigateLightbox(1);
+            });
+        }
+
+        // 11. Toast Notification Helper
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            if (toast && toastMessage) {
+                toastMessage.textContent = message;
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 4000);
+            }
+        }
+
+        function showError(message) {
+            const markdownViewer = document.getElementById('markdown-viewer');
+            if (markdownViewer) {
+                markdownViewer.innerHTML = `<div class="error-box">${message}</div>`;
+            }
+        }
+    </script>
+</body>
+</html>
