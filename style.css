@@ -504,6 +504,10 @@ a:hover {
 /* Premium App Screenshot styling (Clean Static Image Frame) */
 .screenshot-box {
     width: 100%;
+    max-height: 320px; /* Restrict max vertical footprint to prevent button pushing */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: zoom-in;
     border: 1px solid var(--border-color);
     border-radius: 6px;
@@ -524,9 +528,9 @@ a:hover {
 .app-screenshot.slide {
     display: none;
     width: 100%;
-    height: auto;
+    max-height: 300px; /* Bound image inside the restricted box container */
     border-radius: 4px;
-    object-fit: cover;
+    object-fit: contain; /* Prevent stretching and preserve aspect ratio */
 }
 
 .app-screenshot.slide.active {
