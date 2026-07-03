@@ -15,6 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Bind Download actions (DO NOT use e.preventDefault() to allow zip download)
     initDownloadTriggers();
+
+    // Initialize smooth scrolling for header navigation without changing URL hashes
+    initSmoothScroll();
 });
 
 // 3. Language State Control Engine (Body class controls content visibility)
@@ -158,6 +161,20 @@ if (contactForm) {
         .finally(() => {
             submitBtn.innerHTML = originalText; // Restore Submit button text
             submitBtn.disabled = false;
+        });
+    });
+}
+
+// 6. Smooth Scroll without Hash in URL
+function initSmoothScroll() {
+    document.querySelectorAll('.nav-links a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         });
     });
 }

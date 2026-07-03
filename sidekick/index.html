@@ -306,6 +306,12 @@
             if (markdownViewer && typeof marked !== 'undefined') {
                 // Parse markdown text using 'marked' library safely
                 markdownViewer.innerHTML = marked.parse(mdText);
+                
+                // Remove the first H1 header node to prevent duplicate title display
+                const firstH1 = markdownViewer.querySelector('h1');
+                if (firstH1) {
+                    firstH1.remove();
+                }
             }
         }
 

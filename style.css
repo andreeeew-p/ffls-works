@@ -140,6 +140,7 @@ a:hover {
 /* 4. Section Structures */
 .section-container {
     margin-bottom: 50px;
+    scroll-margin-top: 95px; /* Prevent fixed header from covering section titles during smooth scroll */
 }
 
 .section-title {
@@ -588,14 +589,15 @@ a:hover {
 .app-meta-box {
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 16px;
+    margin-bottom: 20px; /* Spacious separation from the screenshot box below */
 }
 
 .app-meta-title {
-    font-size: 1.6rem;
+    font-size: 2.2rem; /* Expanded font size to match major header hierarchy */
     font-weight: 700;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
     color: var(--text-primary);
-    margin-bottom: 8px;
+    margin-bottom: 0; /* Reset margins for clean bottom border align */
     text-transform: capitalize;
 }
 
