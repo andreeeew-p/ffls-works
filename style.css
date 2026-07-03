@@ -238,9 +238,13 @@ a:hover {
 }
 
 .ut-actions {
+    /* Pure table-cell container to avoid browser border rendering bugs */
+}
+
+.actions-wrapper {
     display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 6px;
 }
 
 .btn-text {
