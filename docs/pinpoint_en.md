@@ -2,7 +2,7 @@
 
 > **Superfast On-Demand NAS Search Indexer**
 > 
-> Pinpoint is a high-performance file search utility designed to instantaneously search through massive volumes of files on local drives and shared network storage (NAS) without any lag. Its highly efficient, background-resource-friendly architecture provides a snappy search experience without putting stress on either the client PC or the shared server.
+> Pinpoint is a standalone, portable file search engine for Windows, specifically engineered to eliminate server lag and disk bottleneck on shared network drives (NAS) using **on-demand indexing**. It delivers instant search results within 0.1 seconds, completely free of tracker codes and bloat.
 
 ---
 

@@ -2,7 +2,7 @@
 
 > **Macro & Office Assistant Utility**
 > 
-> Sidekick is an ultra-lightweight Windows productivity utility designed to automate repetitive office tasks and organize your work environment with ease.
+> Sidekick is a portable Windows productivity companion that integrates a keyboard/mouse macro recorder, clipboard history manager, and **100% offline local OCR (optical character recognition)** into a single standalone binary, ensuring complete data privacy with no internet connection required.
 
 ---
 
