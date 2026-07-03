@@ -790,10 +790,12 @@ a:hover {
 .lightbox-content {
     margin: auto;
     display: block;
-    width: 80%;
-    max-width: 1000px;
+    width: auto;
+    max-width: 90%;
+    max-height: 80vh; /* Restrict vertical height to 80% of viewport to prevent overflow */
     border-radius: 8px;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    object-fit: contain; /* Prevent distortion and scale nicely inside viewport */
     animation: zoomIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
