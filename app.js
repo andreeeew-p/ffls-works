@@ -59,9 +59,13 @@ function updateDynamicInputs(lang) {
 
     // Select options
     const optSelect = document.getElementById('opt-select-program');
+    const optSogon = document.getElementById('opt-sogon');
     const optGeneral = document.getElementById('opt-general-idea');
     if (optSelect) {
         optSelect.textContent = lang === 'ko' ? '프로그램 선택' : 'Select Program';
+    }
+    if (optSogon) {
+        optSogon.textContent = lang === 'ko' ? '소곤소곤' : 'sogon';
     }
     if (optGeneral) {
         optGeneral.textContent = lang === 'ko' ? '기타 의견' : 'General Idea';

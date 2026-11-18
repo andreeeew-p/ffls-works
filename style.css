@@ -15,7 +15,7 @@
     --accent-blue: #0284c7;
     --accent-blue-hover: #0369a1;
     
-    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-sans: 'Inter', 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     --font-mono: 'Fira Code', SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
     
     --container-max-width: 960px;
@@ -170,10 +170,18 @@ a:hover {
 
 .utilities-table {
     width: 100%;
+    min-width: 720px;
+    table-layout: fixed;
     border-collapse: collapse;
     text-align: left;
     font-size: 0.95rem;
 }
+
+.utilities-table .col-name { width: 125px; }
+.utilities-table .col-ver { width: 95px; }
+.utilities-table .col-date { width: 115px; }
+.utilities-table .col-meta-wide { width: 210px; }
+.utilities-table .col-actions { width: 200px; }
 
 .utilities-table th {
     background-color: var(--bg-sub);
@@ -209,9 +217,13 @@ a:hover {
     text-decoration: underline;
 }
 
+.ut-name a .lang-ko {
+    font-family: var(--font-sans);
+    letter-spacing: -0.02em;
+}
+
 .ut-desc {
     color: var(--text-secondary);
-    max-width: 320px;
 }
 
 .ut-ver, .ut-date {
@@ -342,7 +354,7 @@ a:hover {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    max-width: 600px;
+    width: 100%;
 }
 
 .form-grid {
@@ -358,9 +370,16 @@ a:hover {
     padding: 10px 12px;
     border: 1px solid var(--border-dark);
     border-radius: 4px;
+    font-family: inherit;
     font-size: 0.95rem;
+    line-height: 1.4;
     background: var(--bg-main);
     color: var(--text-primary);
+}
+
+.form-field input,
+.form-field select {
+    height: 40px;
 }
 
 .form-field select {

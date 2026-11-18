@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FFLS Works - sogon (소곤소곤) Readme. 초성 검색과 Stateless OTP 인증으로 3초 만에 실무 노하우를 찾는 폐쇄형 지식 공유 웹 서비스 소개 및 체험판.">
+    <meta name="keywords" content="sogon, 소곤소곤, 실무 노하우, 초성 검색, 암묵지, FFLS Works">
+    
+    <!-- Open Graph (Facebook, KakaoTalk) -->
+    <meta property="og:title" content="FFLS Works | sogon Readme">
+    <meta property="og:description" content="초성 검색과 비추적 익명 인증으로 3초 만에 실무 노하우를 찾는 웹 서비스.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fflsworks.com/sogon/">
+    <meta property="og:image" content="https://fflsworks.com/assets/ffls_works_og_thumbnail.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="FFLS Works | sogon Readme">
+    <meta name="twitter:description" content="초성 검색과 비추적 익명 인증으로 3초 만에 실무 노하우를 찾는 웹 서비스.">
+    <meta name="twitter:image" content="https://fflsworks.com/assets/ffls_works_og_thumbnail.png">
+    
+    <!-- Favicon settings for Google & Naver -->
+    <link rel="shortcut icon" href="https://fflsworks.com/assets/favicon.png">
+    <link rel="icon" href="https://fflsworks.com/assets/favicon.png" type="image/png">
+
+    <!-- Canonical & Multilingual SEO -->
+    <link rel="canonical" href="https://fflsworks.com/sogon/" />
+    <link rel="alternate" hreflang="ko" href="https://fflsworks.com/sogon/" />
+    <link rel="alternate" hreflang="en" href="https://fflsworks.com/sogon/" />
+    <link rel="alternate" hreflang="x-default" href="https://fflsworks.com/sogon/" />
+
+    <title>FFLS Works | sogon Readme</title>
+    
+    <!-- System Fonts & Modern Webfonts (Inter & Pretendard) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    
+    <!-- Same Stylesheet for brand consistency -->
+    <link rel="stylesheet" href="../style.css?v=20261118_3">
+
+    <!-- JSON-LD Structured Data Schema for Web Application -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "sogon",
+      "operatingSystem": "All (Modern Web Browsers)",
+      "applicationCategory": "BusinessApplication",
+      "url": "https://fflsworks.com/sogon/demo/",
+      "description": "초성 검색과 Stateless OTP 인증을 결합해 사규집에 없는 실무 노하우를 3초 만에 찾고 익명으로 공유하는 폐쇄형 웹 서비스(데모 제공).",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      }
+    }
+    </script>
+</head>
+<body>
+
+    <!-- Sticky Header (100% Pristine English Index layout) -->
+    <header id="site-header">
+        <div class="header-container">
+            <div class="logo">
+                <a href="../">FFLS Works</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="site-wrapper">
+        <!-- Back Navigation & Switcher Row -->
+        <div class="back-navigation-row">
+            <div class="back-navigation">
+                <a href="../" class="btn-back">
+                    &larr; Back to Index
+                </a>
+            </div>
+            <div class="lang-switcher">
+                <button class="btn-lang eng-active" id="btn-lang-en">ENG</button>
+                <span>/</span>
+                <button class="btn-lang kor-active" id="btn-lang-ko">KOR</button>
+            </div>
+        </div>
+
+        <!-- 2-Column Responsive Layout Grid -->
+        <article class="detail-container">
+            <div class="detail-layout-grid">
+                
+                <!-- Left Sidebar: Screenshot, Title & Demo action button -->
+                <aside class="detail-sidebar">
+                    <div class="sidebar-sticky-box">
+                        <div class="app-meta-box">
+                            <h2 class="app-meta-title" id="app-meta-name">Loading...</h2>
+                        </div>
+
+                        <div class="screenshot-box" id="screenshot-container" title="Click to enlarge">
+                            <!-- Injected service mockup image -->
+                        </div>
+                        
+                        <!-- Quick Actions inside sidebar -->
+                        <div class="detail-actions" id="detail-actions-bar">
+                            <!-- Dynamically injected Live Demo link -->
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Right Area: Document text content -->
+                <div class="detail-content-area">
+                    <div id="markdown-viewer" class="markdown-body">
+                        <p class="loading-text">Loading documentation...</p>
+                    </div>
+                </div>
+                
+            </div>
+        </article>
+
+        <!-- Minimal Footer (Unified monospace styling) -->
+        <footer id="site-footer">
+            <p>Copyright &copy; 2026 FFLS Works. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Lightbox Modal for Screenshot Preview (Enlarge view) -->
+    <div id="lightbox-modal" class="lightbox-modal">
+        <button class="lightbox-close" id="lightbox-close-btn" aria-label="Close lightbox">&times;</button>
+        <button class="lightbox-arrow prev" id="lightbox-prev-btn" aria-label="Previous image">&#10094;</button>
+        
+        <img class="lightbox-content" id="lightbox-img" alt="Screenshot Zoom View">
+        
+        <button class="lightbox-arrow next" id="lightbox-next-btn" aria-label="Next image">&#10095;</button>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast-notification" aria-live="polite">
+        <span id="toast-message"></span>
+    </div>
+
+    <!-- Markdown Parser CDN (10KB) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        /* ==========================================================================
+           FFLS Works - Detail Page Controller (Inlined to prevent cache issues)
+           ========================================================================== */
+
+        // 1. Service configuration with screenshots and demo link
+        const appLinks = {
+            sogon: {
+                name: 'sogon',
+                nameKo: '소곤소곤',
+                demo: 'demo/',
+                screenshots: [
+                    '../screenshots EN/sogon/1.png',
+                    '../screenshots EN/sogon/2.png',
+                    '../screenshots EN/sogon/3.png'
+                ]
+            }
+        };
+
+        // 2. Fallback Markdown Data (For offline local fallback or CORS blockages)
+        const fallbackMarkdown = {
+            ko: {
+                sogon: `# sogon\n\n소곤소곤(sogon)은 사규집이나 인트라넷 검색으로 찾기 어려운 현장 실무 팁과 업무 절차를 **초성 검색으로 3초 만에 찾아보고**, 누구나 익명으로 가볍게 공유할 수 있도록 설계된 폐쇄형 사내 지식 공간입니다.\n\n## 주요 특징\n- 이메일 미저장·비추적 인증(Stateless OTP)\n- 한글 초성 및 본문 하이라이트 실시간 검색\n- 하이브리드 카드 보기, 꿀팁 제보, 실시간 톡 지원`
+            },
+            en: {
+                sogon: `# sogon\n\nsogon is a closed-access internal knowledge space designed to help teammates find practical workplace tips in **3 seconds via Korean Choseung search**, backed by zero-tracking stateless OTP authentication.\n\n## Key Features\n- Zero-tracking Stateless OTP authentication\n- Instant Korean Choseung search with keyword highlights\n- Hybrid card/modal views, anonymous tip submission, and live talk`
+            }
+        };
+
+        // 3. State Management
+        const currentApp = 'sogon';
+        let currentLang = 'ko';
+
+        // 4. Initialize Page
+        document.addEventListener('DOMContentLoaded', () => {
+            initLanguage();
+            initLanguageToggle();
+            renderSidebar();
+            fetchDocumentation();
+        });
+
+        // 5. Language State Control Engine
+        function initLanguage() {
+            let savedLang = localStorage.getItem('preferredLanguage');
+            if (!savedLang) {
+                savedLang = navigator.language.startsWith('ko') ? 'ko' : 'en';
+            }
+            setLanguageMode(savedLang, false);
+        }
+
+        function getDisplayName(lang) {
+            const appData = appLinks[currentApp];
+            return (lang === 'ko' && appData.nameKo) ? appData.nameKo : appData.name;
+        }
+
+        function setLanguageMode(lang, shouldFetch = true) {
+            currentLang = lang;
+            document.body.className = `lang-${lang}`;
+            localStorage.setItem('preferredLanguage', lang);
+
+            const displayName = getDisplayName(lang);
+            document.title = `FFLS Works | ${displayName} Readme`;
+            const metaTitleEl = document.getElementById('app-meta-name');
+            if (metaTitleEl) {
+                metaTitleEl.textContent = displayName;
+            }
+
+            const btnKo = document.getElementById('btn-lang-ko');
+            const btnEn = document.getElementById('btn-lang-en');
+            if (btnKo && btnEn) {
+                if (lang === 'ko') {
+                    btnKo.classList.add('kor-active');
+                    btnEn.classList.remove('eng-active');
+                } else {
+                    btnKo.classList.remove('kor-active');
+                    btnEn.classList.add('eng-active');
+                }
+            }
+
+            if (shouldFetch) {
+                fetchDocumentation();
+            }
+        }
+
+        function initLanguageToggle() {
+            const btnKo = document.getElementById('btn-lang-ko');
+            const btnEn = document.getElementById('btn-lang-en');
+
+            if (btnKo) {
+                btnKo.addEventListener('click', () => setLanguageMode('ko', true));
+            }
+            if (btnEn) {
+                btnEn.addEventListener('click', () => setLanguageMode('en', true));
+            }
+        }
+
+        // 6. Sidebar Metadata Specification Renderer
+        function renderSidebar() {
+            const appData = appLinks[currentApp];
+            const displayName = getDisplayName(currentLang);
+            
+            document.title = `FFLS Works | ${displayName} Readme`;
+            document.getElementById('app-meta-name').textContent = displayName;
+
+            const actionsBar = document.getElementById('detail-actions-bar');
+            actionsBar.innerHTML = '';
+
+            if (appData.demo) {
+                const btnDemo = document.createElement('a');
+                btnDemo.href = appData.demo;
+                btnDemo.className = 'btn-detail-action download';
+                btnDemo.target = '_blank';
+                btnDemo.rel = 'noopener noreferrer';
+                btnDemo.textContent = '[Live Demo]';
+                actionsBar.appendChild(btnDemo);
+            }
+
+            initScreenshots(appData.screenshots);
+        }
+
+        // 7. Dynamic Markdown Loader & Renderer
+        function fetchDocumentation() {
+            const markdownViewer = document.getElementById('markdown-viewer');
+            if (markdownViewer) {
+                const loadingMsg = currentLang === 'ko' ? '설명서를 불러오는 중입니다...' : 'Loading documentation...';
+                markdownViewer.innerHTML = `<div class="loading-text">${loadingMsg}</div>`;
+            }
+
+            const docUrl = `../docs/${currentApp}_${currentLang}.md`;
+
+            fetch(docUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch markdown file: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(text => {
+                    renderMarkdown(text);
+                })
+                .catch(err => {
+                    console.warn(`[FFLS Works] Remote MD fetch failed. Using fallback resources:`, err);
+                    const fallbackText = fallbackMarkdown[currentLang][currentApp] || `# ${currentApp}`;
+                    renderMarkdown(fallbackText);
+                });
+        }
+
+        function renderMarkdown(mdText) {
+            const markdownViewer = document.getElementById('markdown-viewer');
+            if (markdownViewer && typeof marked !== 'undefined') {
+                markdownViewer.innerHTML = marked.parse(mdText);
+                const firstH1 = markdownViewer.querySelector('h1');
+                if (firstH1) {
+                    firstH1.remove();
+                }
+            }
+        }
+
+        // 8. Screenshots Slider Engine
+        let activeSlideIndex = 0;
+        let slideImages = [];
+
+        function initScreenshots(screenshotsList) {
+            const container = document.getElementById('screenshot-container');
+            container.innerHTML = '';
+            slideImages = screenshotsList;
+
+            if (!slideImages || slideImages.length === 0) {
+                container.style.display = 'none';
+                return;
+            }
+
+            slideImages.forEach((src, idx) => {
+                const img = document.createElement('img');
+                img.src = src;
+                img.className = 'app-screenshot slide';
+                if (idx === 0) img.classList.add('active');
+                img.alt = `${currentApp} screenshot preview ${idx + 1}`;
+                container.appendChild(img);
+            });
+
+            const controls = document.createElement('div');
+            controls.className = 'slider-controls-outside';
+
+            const btnPrev = document.createElement('button');
+            btnPrev.className = 'btn-text-slider';
+            btnPrev.textContent = '< Prev';
+            btnPrev.addEventListener('click', () => changeSlide(-1));
+
+            const pageText = document.createElement('span');
+            pageText.className = 'slider-page-text';
+            pageText.id = 'slider-page-indicator';
+            pageText.textContent = `1 / ${slideImages.length}`;
+
+            const btnNext = document.createElement('button');
+            btnNext.className = 'btn-text-slider';
+            btnNext.textContent = 'Next >';
+            btnNext.addEventListener('click', () => changeSlide(1));
+
+            controls.appendChild(btnPrev);
+            controls.appendChild(pageText);
+            controls.appendChild(btnNext);
+            
+            container.parentNode.insertBefore(controls, container.nextSibling);
+            setupLightbox();
+        }
+
+        function changeSlide(direction) {
+            const slides = document.querySelectorAll('.app-screenshot.slide');
+            if (slides.length <= 1) return;
+
+            slides[activeSlideIndex].classList.remove('active');
+            activeSlideIndex += direction;
+
+            if (activeSlideIndex >= slides.length) activeSlideIndex = 0;
+            if (activeSlideIndex < 0) activeSlideIndex = slides.length - 1;
+
+            slides[activeSlideIndex].classList.add('active');
+            document.getElementById('slider-page-indicator').textContent = `${activeSlideIndex + 1} / ${slides.length}`;
+        }
+
+        // 9. Lightbox Modal Preview Zoom Engine
+        let lightboxActiveIndex = 0;
+
+        function setupLightbox() {
+            const container = document.getElementById('screenshot-container');
+            const modal = document.getElementById('lightbox-modal');
+            const lightboxImg = document.getElementById('lightbox-img');
+            
+            const closeBtn = document.getElementById('lightbox-close-btn');
+            const prevBtn = document.getElementById('lightbox-prev-btn');
+            const nextBtn = document.getElementById('lightbox-next-btn');
+
+            if (!container || !modal || !lightboxImg || !closeBtn || !prevBtn || !nextBtn) return;
+
+            container.addEventListener('click', () => {
+                lightboxActiveIndex = activeSlideIndex;
+                lightboxImg.src = slideImages[lightboxActiveIndex];
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            });
+
+            const closeModal = () => {
+                modal.classList.remove('show');
+                document.body.style.overflow = '';
+            };
+
+            closeBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+
+            const navigateLightbox = (dir) => {
+                lightboxActiveIndex += dir;
+                if (lightboxActiveIndex >= slideImages.length) lightboxActiveIndex = 0;
+                if (lightboxActiveIndex < 0) lightboxActiveIndex = slideImages.length - 1;
+                lightboxImg.src = slideImages[lightboxActiveIndex];
+            };
+
+            prevBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navigateLightbox(-1);
+            });
+            nextBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navigateLightbox(1);
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (!modal.classList.contains('show')) return;
+                if (e.key === 'Escape') closeModal();
+                if (e.key === 'ArrowLeft') navigateLightbox(-1);
+                if (e.key === 'ArrowRight') navigateLightbox(1);
+            });
+        }
+    </script>
+</body>
+</html>
