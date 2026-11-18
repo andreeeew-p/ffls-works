@@ -11,6 +11,7 @@
     <meta property="og:site_name" content="FFLS Works">
     <meta property="og:description" content="초성 검색과 비추적 익명 인증으로 3초 만에 실무 노하우를 찾는 웹 서비스.">
     <meta property="og:type" content="website">
+    <meta property="og:locale" content="ko_KR">
     <meta property="og:url" content="https://fflsworks.com/sogon/">
     <meta property="og:image" content="https://fflsworks.com/assets/ffls_works_og_thumbnail.png">
     <meta property="og:image:width" content="1200">
@@ -51,7 +52,7 @@
       "name": "sogon",
       "operatingSystem": "All (Modern Web Browsers)",
       "applicationCategory": "BusinessApplication",
-      "url": "https://fflsworks.com/sogon/demo/",
+      "url": "https://fflsworks.com/sogon/",
       "description": "초성 검색과 Stateless OTP 인증을 결합해 사규집에 없는 실무 노하우를 3초 만에 찾고 익명으로 공유하는 폐쇄형 웹 서비스(데모 제공).",
       "offers": {
         "@type": "Offer",
@@ -112,7 +113,30 @@
                 <!-- Right Area: Document text content -->
                 <div class="detail-content-area">
                     <div id="markdown-viewer" class="markdown-body">
-                        <p class="loading-text">Loading documentation...</p>
+                        <blockquote>
+                            <p><strong>3초 만에 찾는 사내 실무 노하우 공유 웹 서비스 (소곤소곤)</strong></p>
+                            <p>소곤소곤(sogon)은 사규집이나 인트라넷 검색으로 찾기 어려운 현장 실무 팁과 업무 절차를 <strong>초성 검색으로 3초 만에 찾아보고</strong>, 누구나 익명으로 가볍게 공유할 수 있도록 설계된 폐쇄형 사내 지식 공간입니다.</p>
+                        </blockquote>
+                        <hr>
+                        <h2>■ 왜 소곤소곤인가요?</h2>
+                        <p><em>"서식이 어디 있지?", "이 결재는 어느 팀이 담당이지?", "반려 안 되려면 뭘 꼭 챙겨야 하지?"</em> 같은 암묵지는 정식 문서로 남지 않아 매번 동료에게 묻거나 시행착오를 겪곤 합니다.</p>
+                        <p>소곤소곤은 무거운 사내 위키나 게시판 대신, <strong>초고속 초성 검색과 비추적 익명 인증(Stateless OTP)</strong>을 결합해 누구나 부담 없이 묻고 답할 수 있는 가벼운 실무 아카이브를 제공합니다.</p>
+                        <hr>
+                        <h2>■ 핵심 특장점 및 기능 (Key Features)</h2>
+                        <ul>
+                            <li><strong>이메일 미저장 · 사용자 추적 차단 (Stateless OTP)</strong>: 사내 이메일로 6자리 OTP만 검증하며 서비스 DB와 쿠키에 이메일·계정·사번을 일절 저장하지 않습니다.</li>
+                            <li><strong>초성만 입력해도 반응하는 초고속 검색</strong>: <code>'ㅅㅇㅈ'</code> → <code>'사원증'</code>처럼 한글 초성과 제목·본문·태그 통합 검색 및 노란 형광펜 강조를 지원합니다.</li>
+                            <li><strong>한눈에 읽히는 하이브리드 카드 보기</strong>: 피드 카드 펼치기/접기와 상세 보기 팝업을 상황에 맞게 제공합니다.</li>
+                            <li><strong>익명 프로필 · 꿀팁 제보 · 사내 실시간 톡</strong>: 동물 캐릭터와 익명 닉네임으로 새 실무 팁을 제보하거나 실시간 톡으로 소통할 수 있습니다.</li>
+                            <li><strong>오래된 정보 자동 알림 (규정확인 권장)</strong>: 작성·수정 후 6개월이 지난 팁을 자동 표시하며 1클릭 수정 제보를 지원합니다.</li>
+                            <li><strong>외부 검색 차단 (폐쇄형 운영)</strong>: 실제 서비스는 인가된 구성원만 접근할 수 있도록 비공개 운영됩니다.</li>
+                        </ul>
+                        <hr>
+                        <h2>■ 체험판 (Live Demo) 안내</h2>
+                        <ul>
+                            <li><strong>제공 범위</strong>: 실제 운영 중인 사내 서비스는 폐쇄형으로 비공개 운영되며, FFLS Works에서는 <strong>가상의 더미 데이터로 동작하는 체험판(Live Demo)</strong>만 공개 제공합니다.</li>
+                            <li><strong>체험 가능 기능</strong>: 초성·키워드 실시간 검색, 카테고리 필터, 하이브리드 카드 보기, 가상 꿀팁 제보, 익명 닉네임 변경 및 실시간 톡 입력(브라우저 메모리 임시 반영).</li>
+                        </ul>
                     </div>
                 </div>
                 
@@ -265,7 +289,7 @@
         // 7. Dynamic Markdown Loader & Renderer
         function fetchDocumentation() {
             const markdownViewer = document.getElementById('markdown-viewer');
-            if (markdownViewer) {
+            if (markdownViewer && markdownViewer.dataset.hydrated === 'true') {
                 const loadingMsg = currentLang === 'ko' ? '설명서를 불러오는 중입니다...' : 'Loading documentation...';
                 markdownViewer.innerHTML = `<div class="loading-text">${loadingMsg}</div>`;
             }
@@ -297,6 +321,7 @@
                 if (firstH1) {
                     firstH1.remove();
                 }
+                markdownViewer.dataset.hydrated = 'true';
             }
         }
 

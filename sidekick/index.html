@@ -11,6 +11,7 @@
     <meta property="og:site_name" content="FFLS Works">
     <meta property="og:description" content="사무 반복 작업을 자동화하는 매크로, 클립보드, 오프라인 OCR 통합 도구.">
     <meta property="og:type" content="website">
+    <meta property="og:locale" content="ko_KR">
     <meta property="og:url" content="https://fflsworks.com/sidekick/">
     <meta property="og:image" content="https://fflsworks.com/assets/ffls_works_og_thumbnail.png">
     <meta property="og:image:width" content="1200">
@@ -113,7 +114,33 @@
                 <!-- Right Area: Document text content -->
                 <div class="detail-content-area">
                     <div id="markdown-viewer" class="markdown-body">
-                        <p class="loading-text">Loading documentation...</p>
+                        <blockquote>
+                            <p><strong>Macro &amp; Office Assistant Utility</strong></p>
+                            <p>Sidekick은 마우스/키보드 매크로 레코더, 클립보드 히스토리 추적기, 그리고 <strong>네트워크 외부 유출 없이 로컬에서 완벽하게 구동되는 오프라인 고성능 OCR(이미지 텍스트 추출)</strong> 기능을 단 하나의 경량 무설치 파일에 통합한 Windows 사무 자동화 유틸리티입니다.</p>
+                        </blockquote>
+                        <hr>
+                        <h2>■ 워크스페이스 밀착형 듀얼 구동 방식</h2>
+                        <p>사용자의 화면 공간을 방해하지 않고 자연스럽게 업무에 녹아들도록 두 가지 구동 모드를 지원합니다.</p>
+                        <ol>
+                            <li><strong>사이드 핀 고정 모드</strong>: 컴팩트한 세로형 레이아웃으로 화면 최상위 고정(Always-on-Top)을 지원해 엑셀·브라우저·ERP 창 옆에서 멀티태스킹하기에 최적화되어 있습니다.</li>
+                            <li><strong>백그라운드 트레이 모드</strong>: 창을 닫거나 최소화해도 시스템 트레이에 상주하며 모든 전역 단축키와 매크로를 대기 상태로 유지합니다.</li>
+                        </ol>
+                        <hr>
+                        <h2>■ 핵심 특장점 및 기능 (Key Features)</h2>
+                        <ul>
+                            <li><strong>매크로 레코더 및 키보드 자동화</strong>: 마우스 클릭(스크린 좌표), 키보드 입력, 지연 시간 조절을 녹화하고 전역 단축키(<code>Alt+1</code> ~ <code>Alt+9</code>)로 즉시 재생합니다.</li>
+                            <li><strong>스마트 클립보드 매니저</strong>: 텍스트와 이미지 복사 이력을 관리하며 줄바꿈 정리 복사 및 엑셀 친화적 TSV 변환 복사를 지원합니다.</li>
+                            <li><strong>스크린샷 및 오프라인 OCR (글자 추출)</strong>: 전역 단축키(<code>Alt+S</code>)로 화면을 캡처하고 인터넷 연결 없이 100% 로컬에서 텍스트를 추출합니다.</li>
+                            <li><strong>크로스 이미지 검색</strong>: 캡처한 이미지의 원본이나 유사 이미지를 구글, 빙, 얀덱스 등에서 역검색할 수 있습니다.</li>
+                            <li><strong>도구 모음 (Toolbox) 및 퀵 런처</strong>: 계산기, 메모장, 맞춤법 검사기, 단위 변환기 및 즐겨찾는 프로그램·웹사이트를 한 곳에 모았습니다.</li>
+                            <li><strong>100% 로컬 프로세싱 &amp; 투명한 디자인</strong>: 클립보드와 캡처 이미지는 외부 서버로 전송되지 않으며 Windows 다크/라이트 테마와 호환됩니다.</li>
+                        </ul>
+                        <hr>
+                        <h2>■ 시스템 요구사항 (System Requirements)</h2>
+                        <ul>
+                            <li><strong>OS</strong>: Windows 10 / 11 (64-bit)</li>
+                            <li><strong>지원 플랫폼</strong>: Windows PC (x64)</li>
+                        </ul>
                     </div>
                 </div>
                 
@@ -276,8 +303,7 @@
         // 8. Dynamic Markdown Loader & Renderer
         function fetchDocumentation() {
             const markdownViewer = document.getElementById('markdown-viewer');
-            // Show Loading Text
-            if (markdownViewer) {
+            if (markdownViewer && markdownViewer.dataset.hydrated === 'true') {
                 const loadingMsg = currentLang === 'ko' ? '설명서를 불러오는 중입니다...' : 'Loading documentation...';
                 markdownViewer.innerHTML = `<div class="loading-text">${loadingMsg}</div>`;
             }
@@ -313,6 +339,7 @@
                 if (firstH1) {
                     firstH1.remove();
                 }
+                markdownViewer.dataset.hydrated = 'true';
             }
         }
 
