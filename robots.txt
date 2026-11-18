@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://andreeeew-p.github.io/ffls-works/sitemap.xml
+Sitemap: https://fflsworks.com/sitemap.xml
